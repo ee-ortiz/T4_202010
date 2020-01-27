@@ -7,7 +7,7 @@ package model.data_structures;
  * @author Fernando De la Rosa
  *
  */
-public class ArregloDinamico implements IArregloDinamico {
+public class ArregloDinamico<T extends Comparable<T>>  implements IArregloDinamico<T> {
 	/**
 	 * Capacidad maxima del arreglo
 	 */
@@ -19,7 +19,7 @@ public class ArregloDinamico implements IArregloDinamico {
 	/**
 	 * Arreglo de elementos de tamaNo maximo
 	 */
-	private String elementos[ ];
+	private T elementos[ ];
 
 	/**
 	 * Construir un arreglo con la capacidad maxima inicial.
@@ -27,19 +27,19 @@ public class ArregloDinamico implements IArregloDinamico {
 	 */
 	public ArregloDinamico( int max )
 	{
-		elementos = new String[max];
+		elementos = (T[]) new Comparable[max];
 		tamanoMax = max;
 		tamanoAct = 0;
 	}
 
-	public void agregar( String dato )
+	public void agregar( T dato )
 	{
 		if ( tamanoAct == tamanoMax )
 		{  // caso de arreglo lleno (aumentar tamaNo)
 
 			tamanoMax = 2 * tamanoMax;
-			String [ ] copia = elementos;
-			elementos = new String[tamanoMax];
+			T [ ] copia = elementos;
+			elementos = (T[]) new Comparable[tamanoMax];
 			for ( int i = 0; i < tamanoAct; i++)
 			{
 				elementos[i] = copia[i];
@@ -58,16 +58,16 @@ public class ArregloDinamico implements IArregloDinamico {
 		return tamanoAct;
 	}
 
-	public String darElemento(int i) {
+	public T darElemento(int i) {
 		// TODO implementar
 		return elementos[i];
 	}
 
-	public String buscar(String dato) {
+	public T buscar(T dato) {
 		// TODO implementar
 		// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
 		boolean found = false;
-		String rta = null;
+		T rta = null;
 
 		for(int i = 0; i<tamanoAct && found ==false ;i++){
 
@@ -82,18 +82,18 @@ public class ArregloDinamico implements IArregloDinamico {
 
 	}
 
-	public String eliminar(String dato) {
+	public T eliminar(T dato) {
 		// TODO implementar
 		// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
 
-		String rta = null;
+		T rta = null;
 		boolean delete = false;
 
 
 		for(int i = 0; i< tamanoAct && delete ==false; i++){
 
 			if(elementos[i].compareTo(dato)==0){
-				String[] copia = new String[tamanoMax-i-1];
+				T[] copia = (T[]) new Comparable[tamanoMax-i-1];
 				int contar = 0;
 				rta = elementos[i];
 				elementos[i] = null;
