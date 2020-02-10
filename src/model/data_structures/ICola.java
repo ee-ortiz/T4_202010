@@ -9,4 +9,5 @@ public interface ICola <T extends Comparable<T>>{
 	public T consultarElementoPrincipio();
 	public T[] darElementos();
 	public void vaciarCola();
+	public T darElementoEspecifico(int i);
 }

@@ -8,5 +8,6 @@ public interface IPila <T extends Comparable<T>> {
 	public boolean estaVacia();
 	public T consultarTope();
 	public T[] darElementos();
+	public T darElementoEspecifico(int i);
 
 }

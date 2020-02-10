@@ -63,7 +63,7 @@ public class Controller {
 					view.printMessage("La nueva cola creada tiene un tamaño de " + nueva.consultarTam());
 					view.printMessage("Sus elementos son: ");
 					for(int i = 0; i<nueva.consultarTam(); i++){
-						view.printMessage(i+1 +". " + modelo.RetornarDatos(nueva.darElementos()[i]));
+						view.printMessage("- "  + modelo.RetornarDatos(nueva.darElementoEspecifico(i)));
 					}
 				}
 				else{
@@ -81,11 +81,11 @@ public class Controller {
 					view.printMessage("La nueva pila creada tiene un tamaño de "+ nueva1.consultarTamano());
 					view.printMessage("Sus elementos son: ");
 					for(int j = 0; j<nueva1.consultarTamano(); j++){
-						view.printMessage(j+1 +". " + modelo.RetornarDatos(nueva1.darElementos()[j]));
+						view.printMessage("- " + modelo.RetornarDatos(nueva1.darElementoEspecifico(j)));
 					}
 				}
 				else{
-					view.printMessage("No has cargado los datos aun");
+					view.printMessage("No has cargado los datos aun ó no existe ningun comparendo con el codigo de infracción que indicaste");
 				}
 				break;
 			default: 

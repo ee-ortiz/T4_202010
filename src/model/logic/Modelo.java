@@ -94,19 +94,21 @@ public class Modelo {
 		for(int i =0; i<datos1.consultarTam(); i++){
 
 			ICola<Comparendo> variableTemporal = new Cola<Comparendo>(600000);
-			variableTemporal.enqueue(datos1.darElementos()[i]);
+			variableTemporal.enqueue(datos1.darElementoEspecifico(i));
 
 			boolean continuar = true;
 			for(int j = i+1; j<datos1.consultarTam() && continuar==true; j++ ){
-				if(datos1.darElementos()[i].compareTo(datos1.darElementos()[j])==0){
+				if(datos1.darElementoEspecifico(i).compareTo(datos1.darElementoEspecifico(j))==0){
 
-					variableTemporal.enqueue(datos1.darElementos()[j]);
+					variableTemporal.enqueue(datos1.darElementoEspecifico(j));
+					i = j;
 
 				}
 
 				else{
 					continuar = false;
-					i = j;
+					
+
 				}
 			}
 			if(variableTemporal.consultarTam()>grupoMasGrande){
@@ -126,10 +128,10 @@ public class Modelo {
 		int conteo = 0;
 		IPila<Comparendo> PilaResultado = null;
 		IPila<Comparendo> variableTemporal = new Pila<Comparendo>(600000);
-		for(int i= datos.consultarTamano()-1 ; i>=0 && conteo<=numComps; i--){
-			if(datos.darElementos()[i].INFRACCION.compareTo(codInfrac)==0){
+		for(int i= datos.consultarTamano()-1 ; i>=0 && conteo<numComps; i--){
+			if(datos.darElementoEspecifico(i).INFRACCION.compareTo(codInfrac)==0){
 
-				variableTemporal.push(datos.darElementos()[i]);
+				variableTemporal.push(datos.darElementoEspecifico(i));
 				conteo++;
 			}
 

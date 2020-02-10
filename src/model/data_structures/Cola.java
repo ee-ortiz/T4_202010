@@ -85,5 +85,11 @@ public class Cola <T extends Comparable<T>>  implements ICola<T>{
 		elementos = (T[]) new Comparable[tamMax];
 	}
 
+	public T darElementoEspecifico(int i){
+
+		return elementos[i];
+
+	}
+
 
 }

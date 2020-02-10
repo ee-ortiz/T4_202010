@@ -78,4 +78,8 @@ public class Pila <T extends Comparable<T>>  implements IPila<T> {
 		return elementos;
 	}
 
+	public T darElementoEspecifico(int i){
+		return elementos[i];
+	}
+
 }
