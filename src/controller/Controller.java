@@ -2,6 +2,9 @@ package controller;
 
 import java.util.Scanner;
 
+import model.data_structures.Comparendo;
+import model.data_structures.ICola;
+import model.data_structures.IPila;
 import model.logic.Modelo;
 import view.View;
 
@@ -9,10 +12,10 @@ public class Controller {
 
 	/* Instancia del Modelo*/
 	private Modelo modelo;
-	
+
 	/* Instancia de la Vista*/
 	private View view;
-	
+
 	/**
 	 * Crear la vista y el modelo del proyecto
 	 * @param capacidad tamaNo inicial del arreglo
@@ -22,82 +25,74 @@ public class Controller {
 		view = new View();
 		modelo = new Modelo();
 	}
-		
+
 	public void run() 
 	{
 		Scanner lector = new Scanner(System.in);
 		boolean fin = false;
-		String dato = "";
-		String respuesta = "";
+		int dato = 0;
+		Comparendo respuesta = null;
 
 		while( !fin ){
 			view.printMenu();
 
 			int option = lector.nextInt();
 			switch(option){
-				case 1:
-					view.printMessage("--------- \nCrear Arreglo \nDar capacidad inicial del arreglo: ");
-				    int capacidad = lector.nextInt();
-				    modelo = new Modelo(capacidad); 
-				    view.printMessage("Arreglo Dinamico creado");
-				    view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;
+			case 1:
+				modelo = new Modelo();
 
-				case 2:
-					view.printMessage("--------- \nDar cadena (simple) a ingresar: ");
-					dato = lector.next();
-					modelo.agregar(dato);
-					view.printMessage("Dato agregado");
-					view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;
+				long start = System.currentTimeMillis();
+				modelo.cargar();
+				IPila<Comparendo> pila = modelo.darPila();
+				ICola<Comparendo> cola = modelo.darCola();
+				long end = System.currentTimeMillis();
 
-				case 3:
-					view.printMessage("--------- \nDar cadena (simple) a buscar: ");
-					dato = lector.next();
-					respuesta = modelo.buscar(dato);
-					if ( respuesta != null)
-					{
-						view.printMessage("Dato encontrado: "+ respuesta);
+				view.printMessage("Tiempo de carga (s): " + (end-start)/1000.0);
+				view.printMessage("Datos cargados en la pila: " + pila.consultarTamano() + "\n");
+				view.printMessage("Datos cargados en la cola: " + cola.consultarTam() + "\n");
+				view.printMessage("Primer dato cola: " + cola.consultarElementoPrincipio().toString() + "\n");
+				view.printMessage("Primer dato pila: " + pila.consultarTope().toString() + "\n");
+				break;
+
+			case 2:
+				//usuario debe mostrarse el número de comparendos del grupo
+				//resultado y por cada comparendo debe informarse (en orden): INFRACCION, OBJECTID,
+				//FECHA_HORA, CLASE_VEHI, TIPO_SERVI, LOCALIDAD
+				ICola<Comparendo> nueva = modelo.clusterMasGrandeCola();
+				if(nueva !=null){
+					view.printMessage("La nueva cola creada tiene un tamaño de " + nueva.consultarTam());
+					view.printMessage("Sus elementos son: ");
+					for(int i = 0; i<nueva.consultarTam(); i++){
+						view.printMessage(i+1 +". " + modelo.RetornarDatos(nueva.darElementos()[i]));
 					}
-					else
-					{
-						view.printMessage("Dato NO encontrado");
-					}
-					view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;
+				}
+				else{
+					view.printMessage("No has cargado los datos aun");
+				}
+				break;
 
-				case 4:
-					view.printMessage("--------- \nDar cadena (simple) a eliminar: ");
-					dato = lector.next();
-					respuesta = modelo.eliminar(dato);
-					if ( respuesta != null)
-					{
-						view.printMessage("Dato eliminado "+ respuesta);
+			case 3: 
+				view.printMessage("Ingrese El número de comparendos que busca tener en su nueva pila");
+				int num = lector.nextInt();
+				view.printMessage("Ingrese el codigo de infraccion que desea que tengan los comparendos de su nueva pila");
+				String infra = lector.next();
+				IPila<Comparendo> nueva1 = modelo.ultimosNComparendos(num, infra);
+				if(nueva1!=null){
+					view.printMessage("La nueva pila creada tiene un tamaño de "+ nueva1.consultarTamano());
+					view.printMessage("Sus elementos son: ");
+					for(int j = 0; j<nueva1.consultarTamano(); j++){
+						view.printMessage(j+1 +". " + modelo.RetornarDatos(nueva1.darElementos()[j]));
 					}
-					else
-					{
-						view.printMessage("Dato NO eliminado");							
-					}
-					view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;
-
-				case 5: 
-					view.printMessage("--------- \nContenido del Arreglo: ");
-					view.printModelo(modelo);
-					view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;	
-					
-				case 6: 
-					view.printMessage("--------- \n Hasta pronto !! \n---------"); 
-					lector.close();
-					fin = true;
-					break;	
-
-				default: 
-					view.printMessage("--------- \n Opcion Invalida !! \n---------");
-					break;
+				}
+				else{
+					view.printMessage("No has cargado los datos aun");
+				}
+				break;
+			default: 
+				view.printMessage("--------- \n Opcion Invalida !! \n---------");
+				break;
 			}
 		}
-		
+
 	}	
 }

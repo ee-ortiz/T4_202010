@@ -13,19 +13,16 @@ public class TestModelo {
 
 	@Before
 	public void setUp1() {
-		modelo= new Modelo(CAPACIDAD);
+
 	}
 
 	public void setUp2() {
-		for(int i =0; i< CAPACIDAD;i++){
-			modelo.agregar(""+i);
-		}
+
 	}
 
 	@Test
 	public void testModelo() {
-		assertTrue(modelo!=null);
-		assertEquals(0, modelo.darTamano());  // Modelo con 0 elementos presentes.
+
 	}
 
 	@Test
@@ -33,7 +30,7 @@ public class TestModelo {
 		// TODO
 		setUp1();
 		setUp2();
-		assertEquals(100, modelo.darTamano());
+
 	}
 
 	@Test
@@ -41,9 +38,7 @@ public class TestModelo {
 		// TODO Completar la prueba
 		setUp1();
 		setUp2();
-		modelo.agregar("Prueba");
-		assertEquals(101,modelo.darTamano());
-		assertEquals("Prueba", modelo.buscar("Prueba"));
+
 	}
 
 	@Test
