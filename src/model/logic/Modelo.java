@@ -4,9 +4,7 @@ import model.data_structures.ArregloDinamico;
 import model.data_structures.Cola;
 import model.data_structures.Comparendo;
 import model.data_structures.IArregloDinamico;
-import model.data_structures.ICola;
-import model.data_structures.IPila;
-import model.data_structures.Pila;
+
 
 /**
  * Definicion del modelo del mundo
@@ -16,8 +14,7 @@ public class Modelo {
 	/**
 	 * Atributos del modelo del mundo
 	 */
-	private IPila<Comparendo> datos;
-	private ICola<Comparendo> datos1;
+	private IArregloDinamico<Comparendo> comps;
 	private GeoJSONProcessing objetoJsonGson;
 
 	/**
@@ -25,8 +22,7 @@ public class Modelo {
 	 */
 	public Modelo()
 	{
-		datos = new Pila<Comparendo>(600000);
-		datos1 = new Cola<Comparendo>(600000);
+		comps = new ArregloDinamico(600000);
 		objetoJsonGson = new GeoJSONProcessing();
 	}
 
@@ -34,14 +30,9 @@ public class Modelo {
 	 * Servicio de consulta de numero de elementos presentes en el modelo 
 	 * @return numero de elementos presentes en el modelo
 	 */
-	public int darTamanoPila()
+	public int darTamano()
 	{
-		return datos.consultarTamano();
-	}
-
-	public int darTamanoCola(){
-
-		return datos1.consultarTam();
+		return comps.darTamano();
 	}
 
 
@@ -50,9 +41,9 @@ public class Modelo {
 	 * @param dato Dato a buscar
 	 * @return dato encontrado
 	 */
-	public String buscar(String dato)
+	public Comparendo buscar(Comparendo dato)
 	{
-		return null;
+		return comps.buscar(dato);
 	}
 
 	/**
@@ -65,84 +56,19 @@ public class Modelo {
 		return null;
 	}
 
-	public String darElemento(int numero){
-		return null;
+	public Comparendo darElemento(int numero){
+		return comps.darElemento(numero);
 
 	}
 
-	public void cargar(){
+	public void cargar(String direccion){
 
-		objetoJsonGson.cargarDatos(datos, datos1);
+		objetoJsonGson.cargarDatos(comps, direccion);;
 	}
 
-	public IPila<Comparendo> darPila(){
+	public IArregloDinamico<Comparendo> darArreglo(){
 
-		return datos;
-	}
-
-	public ICola<Comparendo> darCola(){
-
-		return datos1;
-	}
-
-
-	public ICola<Comparendo> clusterMasGrandeCola(){
-
-		int grupoMasGrande = 0;
-		ICola<Comparendo> colaMasGrande = null;
-
-		for(int i =0; i<datos1.consultarTam(); i++){
-
-			ICola<Comparendo> variableTemporal = new Cola<Comparendo>(600000);
-			variableTemporal.enqueue(datos1.darElementoEspecifico(i));
-
-			boolean continuar = true;
-			for(int j = i+1; j<datos1.consultarTam() && continuar==true; j++ ){
-				if(datos1.darElementoEspecifico(i).compareTo(datos1.darElementoEspecifico(j))==0){
-
-					variableTemporal.enqueue(datos1.darElementoEspecifico(j));
-					i = j;
-
-				}
-
-				else{
-					continuar = false;
-					
-
-				}
-			}
-			if(variableTemporal.consultarTam()>grupoMasGrande){
-				colaMasGrande = variableTemporal;
-				grupoMasGrande = variableTemporal.consultarTam();
-
-			}
-
-		}
-		datos1.vaciarCola();
-		return colaMasGrande;
-
-	}
-
-	public IPila<Comparendo> ultimosNComparendos(int numComps, String codInfrac){
-
-		int conteo = 0;
-		IPila<Comparendo> PilaResultado = null;
-		IPila<Comparendo> variableTemporal = new Pila<Comparendo>(600000);
-		for(int i= datos.consultarTamano()-1 ; i>=0 && conteo<numComps; i--){
-			if(datos.darElementoEspecifico(i).INFRACCION.compareTo(codInfrac)==0){
-
-				variableTemporal.push(datos.darElementoEspecifico(i));
-				conteo++;
-			}
-
-			datos.pop();
-		}
-		if(variableTemporal.consultarTamano()>0){
-			PilaResultado = variableTemporal;
-		}
-
-		return PilaResultado;
-
+		return comps;
 	}
 
 	public String RetornarDatos(Comparendo comp){

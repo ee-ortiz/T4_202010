@@ -14,6 +14,7 @@ import com.google.gson.stream.JsonReader;
 
 import model.data_structures.Cola;
 import model.data_structures.Comparendo;
+import model.data_structures.IArregloDinamico;
 import model.data_structures.ICola;
 import model.data_structures.IPila;
 import model.data_structures.Pila;
@@ -22,19 +23,14 @@ import model.data_structures.Pila;
 
 public class GeoJSONProcessing {
 
-	public static String PATH = "./data/comparendos_dei_2018_small.geojson";
-	public static String PATH2 = "./data/comparendos_dei_2018.geojson";
-
-
 	// Solucion de carga de datos publicada al curso Estructuras de Datos 2020-10
-	public void cargarDatos(IPila<Comparendo> pila, ICola<Comparendo> cola){
+	public void cargarDatos(IArregloDinamico<Comparendo> pComp, String direccion){
 
 		JsonReader reader;
 		try {
-			reader = new JsonReader(new FileReader(PATH));
+			reader = new JsonReader(new FileReader(direccion));
 			JsonElement elem = JsonParser.parseReader(reader);
 			JsonArray e2 = elem.getAsJsonObject().get("features").getAsJsonArray();
-
 
 			SimpleDateFormat parser=new SimpleDateFormat("yyyy/MM/dd");
 
@@ -58,14 +54,20 @@ public class GeoJSONProcessing {
 				c.latitud = e.getAsJsonObject().get("geometry").getAsJsonObject().get("coordinates").getAsJsonArray()
 						.get(1).getAsDouble();
 
-				pila.push(c);
-				cola.enqueue(c);
-			}
+				pComp.agregar(c);				
 
-		} catch (FileNotFoundException | ParseException e) {
+			}
+		} 
+		catch (FileNotFoundException | ParseException e) {
+
 			e.printStackTrace();
-		}	
+
+		}
+
 	}
+
+
+
 
 
 }

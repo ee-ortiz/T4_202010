@@ -27,7 +27,12 @@ public class Comparendo implements Comparable<Comparendo> {
 
 	public int compareTo(Comparendo comp) {
 
-		return INFRACCION.compareTo(comp.INFRACCION);
+		if(FECHA_HORA==comp.FECHA_HORA){
+			return OBJECTID - comp.OBJECTID;
+		}
+		else{
+			return FECHA_HORA.compareTo(comp.FECHA_HORA);
+		}
 
 	}
 }
