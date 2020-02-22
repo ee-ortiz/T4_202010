@@ -20,6 +20,8 @@ public class Controller {
 	private boolean cargado;
 	public static String PATH = "./data/comparendos_dei_2018_small.geojson";
 	public static String PATH2 = "./data/comparendos_dei_2018.geojson";
+	private Comparable<Comparendo>[] aOrdenar;
+	private Comparable<Comparendo>[] copiaPrimera;
 
 	/**
 	 * Crear la vista y el modelo del proyecto
@@ -66,21 +68,59 @@ public class Controller {
 
 				break;			
 
+				//Mostrar:
+				// El tiempo en milisegundos que tomó el algoritmo realizando el ordenamiento 
+				// Los 10 primeros comparendos y los 10 últimos comparendos resultado del ordenamiento.
 			case 2:
 				if(cargado == true){
-					Comparable[] nuevo  = modelo.copiarComparendos();
-					view.printMessage("El numero de comparendos que tiene el nuevo arreglo es: " + nuevo.length +"\n");
+					copiaPrimera  = modelo.copiarComparendos();	
+					view.printMessage("El numero de comparendos que contiene el nuevo arreglo es: " + copiaPrimera.length + "\n");
 				}
 				else{
 					view.printMessage("Aun no has cargado los comparendos");
 				}
 				break;
+
+			case 3:
+				aOrdenar = copiaPrimera;
+				long start = System.currentTimeMillis();
+				modelo.shellSort(aOrdenar);
+				long end = System.currentTimeMillis();
+				view.printMessage("Tiempo de carga (s): " + (end-start)/1000.0);
+
+				String rta1 = "";
+				String rta2 = "";
+
+				int i = 0;
+				while(i<10){
+					Comparendo aMostarInicial = (Comparendo) aOrdenar[i];
+					Comparendo aMostraFinal = (Comparendo) aOrdenar[aOrdenar.length -10 +i];
+					rta1 += "- " + aMostarInicial.retornarDatos() + "\n";
+					rta2 += "- " + aMostraFinal.retornarDatos() + "\n";	
+					i++;
+
+				}
+				view.printMessage("Los 10 comparendos iniciales son:");
+				view.printMessage(rta1);
+				view.printMessage("Los 10 comparendos finales son:");
+				view.printMessage(rta2);
+
+				break;
 				
+			case 4:
+				// caso de ándres
+				
+				break;
+				
+				
+
+
 			default: 
 
 				view.printMessage("--------- \n Opcion Invalida !! \n---------");
 				break;
 			}
+			
 		}
 
 	}	
