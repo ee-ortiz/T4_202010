@@ -15,8 +15,7 @@ public class View
 	public void printMenu()
 	{
 		System.out.println("1. Cargar Datos");
-		System.out.println("2. Buscar el grupo de comparendos consecutivos(cluster) más grande por su código de INFRACCION ");
-		System.out.println("3. reportar los últimos N comparendos para una INFRACCION dada");
+		System.out.println("2. Crear un arreglo de objetos Comparables con los comparendos de la carga inicial");
 		System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return:");
 
 	}

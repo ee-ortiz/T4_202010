@@ -78,4 +78,60 @@ public class Modelo {
 				comp.TIPO_SERVI + " Localidad: "+ comp.LOCALIDAD;
 		return rta;
 	}
+
+	public Comparable[ ] copiarComparendos(){
+
+		Comparable[] rta = new Comparable[comps.darTamano()];
+		int i = 0;
+		while(i < comps.darTamano()){
+			rta[i] = comps.darElemento(i);
+			i++;
+		}
+
+		return rta;
+
+	}
+
+	// solucion adaptada de las presentaciones de sicua
+	public void shellSort(Comparable datos[]){
+
+		int tamano = datos.length;
+		int h = 1;
+		while (h < tamano/3){
+
+			h = 3*h + 1; // 1, 4, 13, 40, 121, 364, ...
+
+		}
+		while (h >= 1)
+		{ // h-sort the array.
+			for (int i = h; i < tamano; i++)
+			{
+				for (int j = i; j >= h && less(datos[j], datos[j-h]); j -= h){
+
+					exch(datos, j, j-h);
+				}
+
+			}
+			h = h/3;
+		}
+
+	}
+
+	public void exch(Comparable[] a, int i, int j ){
+
+		Comparable temporal = a[i];
+		a[i] = a[j];
+		a[j] = temporal;
+	}
+
+	public boolean less(Comparable a, Comparable b){
+
+		if(a.compareTo(b)<0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
 }

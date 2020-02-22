@@ -17,11 +17,12 @@ public class Comparendo implements Comparable<Comparendo> {
 	public double longitud;
 
 
-	public String toString() {
-		return "Comparendo [OBJECTID=" + OBJECTID + ", FECHA_HORA=" + FECHA_HORA + ", DES_INFRAC=" + DES_INFRAC
-				+ ", MEDIO_DETE=" + MEDIO_DETE + ", CLASE_VEHI=" + CLASE_VEHI + ", TIPO_SERVI=" + TIPO_SERVI
-				+ ", INFRACCION=" + INFRACCION + ", LOCALIDAD=" + LOCALIDAD + ", latitud=" + latitud + ", longitud="
-				+ longitud + "]";
+	public String retornarDatos(){
+		//	Mostrar la información del comparendo (OBJECTID, FECHA_HORA, INFRACCION, CLASE_VEHI, TIPO_SERVI, LOCALIDAD) 
+
+		String rta = "OBJECTID: "+OBJECTID +" FECHA_HORA: " + FECHA_HORA + " INFRACCION: " + INFRACCION + " CLASE_VEHI: "+CLASE_VEHI + " TIPO_SERVI: " +
+				TIPO_SERVI + " LOCALIDAD: "+ LOCALIDAD;
+		return rta;
 	}
 
 

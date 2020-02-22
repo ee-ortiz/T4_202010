@@ -3,6 +3,7 @@ package controller;
 import java.util.Scanner;
 
 import model.data_structures.Comparendo;
+import model.data_structures.IArregloDinamico;
 import model.data_structures.ICola;
 import model.data_structures.IPila;
 import model.logic.Modelo;
@@ -47,23 +48,36 @@ public class Controller {
 					modelo = new Modelo();
 
 					long start = System.currentTimeMillis();
-					modelo.cargar(PATH2);
+					modelo.cargar(PATH);
+					IArregloDinamico<Comparendo> comps = modelo.darArreglo();
 					long end = System.currentTimeMillis();
 
 					view.printMessage("Tiempo de carga (s): " + (end-start)/1000.0);
-					view.printMessage(rta);
+					view.printMessage("El numero de datos cargados es: " + comps.darTamano());
+					view.printMessage("El primer comparendo cargado es: " + comps.darElemento(0).retornarDatos());
+					view.printMessage("El ultimo comparendo cargado es: "+ comps.darElemento(comps.darTamano()-1).retornarDatos() +"\n");
 					cargado = true;
 				}
 
 				else{
 
-					view.printMessage("Los datos contenidos en los archivos sólo se pueden leer una vez");
+					view.printMessage("Los datos contenidos en los archivos sólo se pueden leer una vez" +"\n");
 				}
 
 				break;			
 
-
+			case 2:
+				if(cargado == true){
+					Comparable[] nuevo  = modelo.copiarComparendos();
+					view.printMessage("El numero de comparendos que tiene el nuevo arreglo es: " + nuevo.length +"\n");
+				}
+				else{
+					view.printMessage("Aun no has cargado los comparendos");
+				}
+				break;
+				
 			default: 
+
 				view.printMessage("--------- \n Opcion Invalida !! \n---------");
 				break;
 			}
