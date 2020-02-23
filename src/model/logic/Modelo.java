@@ -117,6 +117,57 @@ public class Modelo {
 
 	}
 
+	/* This function takes last element as pivot, 
+    places the pivot element at its correct 
+    position in sorted array, and places all 
+    smaller (smaller than pivot) to left of 
+    pivot and all greater elements to right 
+    of pivot */
+
+	// solucion adaptada de: https://www.geeksforgeeks.org/quick-sort/
+	public int partition(Comparable datos[], int low, int high) 
+	{ 
+		Comparable pivote = datos[high];  
+		int i = (low-1); // index of smaller element 
+		for (int j=low; j<high; j++) 
+		{ 
+			// Si el elemento actual es menor que el pivote
+			if (less(datos[j], pivote)) 
+			{ 
+				i++; 
+				// swap datos[i] and datos[j]  
+				exch(datos, i, j);
+			} 
+		} 
+
+		// swap datos[i+1] and datos[high] (o pivote) 
+		exch(datos, i+1, high);
+
+		return i+1; 
+	} 
+
+
+	/* The main function that implements QuickSort() 
+   datos[] --> Array to be sorted, 
+   low  --> Starting index, 
+   high  --> Ending index */
+
+	// solucion adaptada de: https://www.geeksforgeeks.org/quick-sort/
+	public void sort(Comparable datos[], int low, int high) 
+	{ 
+		if (low < high) 
+		{ 
+			/* pi is partitioning index, arr[pi] is  
+           now at right place */
+			int pi = partition(datos, low, high); 
+
+			// Recursively sort elements before 
+			// partition and after partition 
+			sort(datos, low, pi-1); 
+			sort(datos, pi+1, high); 
+		} 
+	} 
+
 	public void exch(Comparable[] a, int i, int j ){
 
 		Comparable temporal = a[i];

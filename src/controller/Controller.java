@@ -83,10 +83,10 @@ public class Controller {
 
 			case 3:
 				aOrdenar = copiaPrimera;
-				long start = System.currentTimeMillis();
+				long start1 = System.currentTimeMillis();
 				modelo.shellSort(aOrdenar);
-				long end = System.currentTimeMillis();
-				view.printMessage("Tiempo de carga (s): " + (end-start)/1000.0);
+				long end1 = System.currentTimeMillis();
+				view.printMessage("Tiempo de carga (s): " + (end1-start1)/1000.0);
 
 				String rta1 = "";
 				String rta2 = "";
@@ -106,13 +106,42 @@ public class Controller {
 				view.printMessage(rta2);
 
 				break;
-				
+
 			case 4:
 				// caso de ándres
-				
+
 				break;
-				
-				
+
+			case 5:
+
+				aOrdenar = copiaPrimera;
+				long start2 = System.currentTimeMillis();
+				// Algoritmo quickSort
+				modelo.sort(aOrdenar, 0, aOrdenar.length-1);
+				long end2 = System.currentTimeMillis();
+				view.printMessage("Tiempo de carga (s): " + (end2-start2)/1000.0);
+
+				String rtaQuickSort1 = "";
+				String rtaQuickSort2 = "";
+
+				int j = 0;
+				while(j<10){
+					Comparendo aMostarInicial = (Comparendo) aOrdenar[j];
+					Comparendo aMostraFinal = (Comparendo) aOrdenar[aOrdenar.length -10 +j];
+					rtaQuickSort1 += "- " + aMostarInicial.retornarDatos() + "\n";
+					rtaQuickSort2 += "- " + aMostraFinal.retornarDatos() + "\n";	
+					j++;
+
+				}
+				view.printMessage("Los 10 comparendos iniciales son:");
+				view.printMessage(rtaQuickSort1);
+				view.printMessage("Los 10 comparendos finales son:");
+				view.printMessage(rtaQuickSort2);
+
+
+
+
+				break;
 
 
 			default: 
@@ -120,7 +149,7 @@ public class Controller {
 				view.printMessage("--------- \n Opcion Invalida !! \n---------");
 				break;
 			}
-			
+
 		}
 
 	}	

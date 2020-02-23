@@ -17,6 +17,8 @@ public class View
 		System.out.println("1. Cargar Datos");
 		System.out.println("2. Crear un arreglo de objetos Comparables con los comparendos de la carga inicial");
 		System.out.println("3. Ordenar ascendentemente los comparendos del nuevo arreglo usando el algoritmo ShellSort");
+		System.out.println("4. Ordenar ascendentemente los comparendos del nuevo arreglo usando el algoritmo MergeSort");
+		System.out.println("5. Ordenar ascendentemente los comparendos del nuevo arreglo usando el algoritmo QuickSort");		
 		System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return:");
 
 	}

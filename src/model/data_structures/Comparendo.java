@@ -28,8 +28,8 @@ public class Comparendo implements Comparable<Comparendo> {
 
 	public int compareTo(Comparendo comp) {
 
-		if(FECHA_HORA==comp.FECHA_HORA){
-			return OBJECTID - comp.OBJECTID;
+		if(FECHA_HORA.compareTo(comp.FECHA_HORA)==0){
+			return (OBJECTID - comp.OBJECTID);
 		}
 		else{
 			return FECHA_HORA.compareTo(comp.FECHA_HORA);

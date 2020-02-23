@@ -3,8 +3,6 @@ package test.logic;
 import static org.junit.Assert.*;
 
 import model.data_structures.Comparendo;
-import model.data_structures.ICola;
-import model.data_structures.IPila;
 import model.logic.Modelo;
 
 import org.junit.Before;
@@ -13,6 +11,8 @@ import org.junit.Test;
 public class TestModelo {
 
 	private Modelo modelo;
+	public static String PATH = "./data/comparendos_dei_2018_small.geojson";
+	public static String PATH2 = "./data/comparendos_dei_2018.geojson";
 
 	@Before
 	public void setUp1() {
@@ -21,24 +21,14 @@ public class TestModelo {
 
 	}
 
+
 	public void setUp2() {
 
-		modelo.cargar();
-		Comparendo comp = new Comparendo();
-		comp.INFRACCION = "Prueba Infraccion";
-		modelo.darPila().push(comp);
-		modelo.darCola().enqueue(comp);
-
-	}
-
-	public void setUp3() {
-
-		modelo.cargar();
+		modelo.cargar(PATH);
 		for(int i = 0; i< 8; i++){
 			Comparendo comp = new Comparendo();
 			comp.INFRACCION = "Prueba Infraccion";
-			modelo.darPila().push(comp);
-			modelo.darCola().enqueue(comp);
+			modelo.darArreglo().agregar(comp);
 		}
 
 	}
@@ -46,24 +36,16 @@ public class TestModelo {
 
 
 	@Test
-	public void testClusterMasGrande() {
-
-		setUp1();
-		setUp3();
-		ICola<Comparendo> col = modelo.clusterMasGrandeCola();
-		assertEquals(8, col.consultarTam());
-
-	}
-
-	@Test
-	public void testUltimosNComparendos() {
+	public void testComprobarCargaYAgregar() {
 
 		setUp1();
 		setUp2();
-		IPila<Comparendo> pil = modelo.ultimosNComparendos(1, "Prueba Infraccion");
-		assertEquals(1, pil.consultarTamano());
-
+		int num = modelo.darArreglo().darTamano();
+		assertEquals(28, num);
+		String infrac = modelo.darArreglo().darElemento(27).INFRACCION;
+		assertEquals("Prueba Infraccion", infrac);
 
 	}
+
 
 }
