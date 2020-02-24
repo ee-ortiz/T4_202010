@@ -163,5 +163,26 @@ public class TestAlgoritmosOrdenamiento {
 		}
 
 	}
-
+	@Test
+	public void testMergeSortAleatorio()
+	{
+		setUp1();
+		setUp1Arreglo();
+		setUp2();
+	}
+	
+	@Test
+	public void testMergeSortOrdenadoAscendentemente()
+	{
+		setUp1();
+		setUp2Arreglo();
+		setUp2();
+	}
+	@Test
+	public void testMergeSortAleatorioOrdenadoDescendentemente()
+	{
+		setUp1();
+		setUp3Arreglo();
+		setUp2();
+	}
 }

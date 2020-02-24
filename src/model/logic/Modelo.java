@@ -175,14 +175,44 @@ public class Modelo {
 		a[j] = temporal;
 	}
 
-	public boolean less(Comparable a, Comparable b){
+	public static boolean less(Comparable a, Comparable b){
 
 		if(a.compareTo(b)<0){
 			return true;
 		}
 		else{
-			return false;
+			return false; //mayor o igual a cero
 		}
 	}
+	 private static void sortParaMergeSort(Comparable[] a, Comparable[] aux, int lo, int hi)
+	 {
+	 if (hi <= lo) return;
+	 int mid = lo + (hi - lo) / 2;
+	 sortParaMergeSort(a, aux, lo, mid);
+	 sortParaMergeSort(a, aux, mid+1, hi);
+	 merge(a, aux, lo, mid, hi);
+	 }
+	 
+	 
+	 public static void sortParaMerge(Comparable[] a)
+	 {
+	 Comparable[] aux = new Comparable[a.length];
+	 sortParaMergeSort(a, aux, 0, a.length - 1);
+	 }
+	 
+	 private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi)
+	 {
+	  for (int k = lo; k <= hi; k++)
+	  aux[k] = a[k];
+	  int i = lo, j = mid+1;
+	  for (int k = lo; k <= hi; k++)
+	  	{
+	  if (i > mid) a[k] = aux[j++];
+	  else if (j > hi) a[k] = aux[i++];
+	  else if (less(aux[j], aux[i])) //si izquierda menor true
+	  	{ a[k] = aux[j++];}
+	  else a[k] = aux[i++];
+	  	}
+	 } 
 
 }
