@@ -1,11 +1,10 @@
 package model.logic;
 
 import model.data_structures.ArregloDinamico;
-import model.data_structures.Cola;
 import model.data_structures.Comparendo;
 import model.data_structures.IArregloDinamico;
 
-
+import java.util.Random;
 /**
  * Definicion del modelo del mundo
  *
@@ -16,6 +15,7 @@ public class Modelo {
 	 */
 	private IArregloDinamico<Comparendo> comps;
 	private GeoJSONProcessing objetoJsonGson;
+	
 
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
@@ -125,7 +125,7 @@ public class Modelo {
     of pivot */
 
 	// solucion adaptada de: https://www.geeksforgeeks.org/quick-sort/
-	public int partition(Comparable datos[], int low, int high) 
+	public static int partition(Comparable datos[], int low, int high) 
 	{ 
 		Comparable pivote = datos[high];  
 		int i = (low-1); // index of smaller element 
@@ -146,14 +146,19 @@ public class Modelo {
 		return i+1; 
 	} 
 
-
+//relacionado al quicksort, de aqui inicia.
+	public static void sort(Comparable[] a)
+	 {
+	 StdRandom.shuffle(a);
+	 sort(a, 0, a.length - 1);
+	 } 
 	/* The main function that implements QuickSort() 
    datos[] --> Array to be sorted, 
    low  --> Starting index, 
    high  --> Ending index */
 
 	// solucion adaptada de: https://www.geeksforgeeks.org/quick-sort/
-	public void sort(Comparable datos[], int low, int high) 
+	public static void sort(Comparable datos[], int low, int high) 
 	{ 
 		if (low < high) 
 		{ 
@@ -168,7 +173,7 @@ public class Modelo {
 		} 
 	} 
 
-	public void exch(Comparable[] a, int i, int j ){
+	public static void exch(Comparable[] a, int i, int j ){
 
 		Comparable temporal = a[i];
 		a[i] = a[j];
@@ -184,6 +189,9 @@ public class Modelo {
 			return false; //mayor o igual a cero
 		}
 	}
+	/*
+	 * paso 2 algoritmo mergeSort
+	 */
 	 private static void sortParaMergeSort(Comparable[] a, Comparable[] aux, int lo, int hi)
 	 {
 	 if (hi <= lo) return;
@@ -193,13 +201,20 @@ public class Modelo {
 	 merge(a, aux, lo, mid, hi);
 	 }
 	 
-	 
+	 /*
+	  *  aqui inicia el algoritmo mergeSort sacado del libro algorithms 4 edicion
+	  */
 	 public static void sortParaMerge(Comparable[] a)
 	 {
 	 Comparable[] aux = new Comparable[a.length];
 	 sortParaMergeSort(a, aux, 0, a.length - 1);
 	 }
 	 
+	 
+	 
+	 /*
+	  * ultimo paso
+	  */
 	 private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi)
 	 {
 	  for (int k = lo; k <= hi; k++)

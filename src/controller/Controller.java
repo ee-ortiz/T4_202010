@@ -50,7 +50,7 @@ public class Controller {
 					modelo = new Modelo();
 
 					long start = System.currentTimeMillis();
-					modelo.cargar(PATH);
+					modelo.cargar(PATH2);
 					IArregloDinamico<Comparendo> comps = modelo.darArreglo();
 					long end = System.currentTimeMillis();
 
@@ -109,6 +109,28 @@ public class Controller {
 
 			case 4:
 				// caso de ándres
+				aOrdenar = copiaPrimera;
+				long start3 = System.currentTimeMillis();
+				modelo.sortParaMerge(aOrdenar);
+				long end3 = System.currentTimeMillis();
+				view.printMessage("Tiempo de carga (s): " + (end3-start3)/1000.0);
+
+				String rtaMergeSort = "";
+				String rtaMergeSort2 = "";
+
+				int as = 0;
+				while(as<10){
+					Comparendo aMostarInicial = (Comparendo) aOrdenar[as];
+					Comparendo aMostraFinal = (Comparendo) aOrdenar[aOrdenar.length -10 +as];
+					rtaMergeSort += "- " + aMostarInicial.retornarDatos() + "\n";
+					rtaMergeSort2 += "- " + aMostraFinal.retornarDatos() + "\n";	
+					as++;
+
+				}
+				view.printMessage("Los 10 comparendos iniciales son:");
+				view.printMessage(rtaMergeSort);
+				view.printMessage("Los 10 comparendos finales son:");
+				view.printMessage(rtaMergeSort2);
 
 				break;
 
@@ -117,7 +139,7 @@ public class Controller {
 				aOrdenar = copiaPrimera;
 				long start2 = System.currentTimeMillis();
 				// Algoritmo quickSort
-				modelo.sort(aOrdenar, 0, aOrdenar.length-1);
+				modelo.sort(aOrdenar);
 				long end2 = System.currentTimeMillis();
 				view.printMessage("Tiempo de carga (s): " + (end2-start2)/1000.0);
 
@@ -137,7 +159,7 @@ public class Controller {
 				view.printMessage(rtaQuickSort1);
 				view.printMessage("Los 10 comparendos finales son:");
 				view.printMessage(rtaQuickSort2);
-
+				
 
 
 

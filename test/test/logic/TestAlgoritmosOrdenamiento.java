@@ -29,6 +29,7 @@ public class TestAlgoritmosOrdenamiento {
 	private IArregloDinamico<Integer> arregloIntegers;
 	private Comparable[] doubles;
 	private Comparable[] ints;
+	
 
 	@Before
 	public void setUp1() {
@@ -169,6 +170,12 @@ public class TestAlgoritmosOrdenamiento {
 		setUp1();
 		setUp1Arreglo();
 		setUp2();
+		modelo.sortParaMerge(ints);
+		for(int i= 0; i<19; i++){
+
+			assertTrue(doubles[i].compareTo(doubles[i+1])<=0);
+		}
+
 	}
 	
 	@Test
@@ -177,6 +184,12 @@ public class TestAlgoritmosOrdenamiento {
 		setUp1();
 		setUp2Arreglo();
 		setUp2();
+		modelo.sortParaMerge(ints);
+		for(int i= 0; i<20; i++){
+
+			assertEquals(i, ints[i]);
+
+		}
 	}
 	@Test
 	public void testMergeSortAleatorioOrdenadoDescendentemente()
@@ -184,5 +197,10 @@ public class TestAlgoritmosOrdenamiento {
 		setUp1();
 		setUp3Arreglo();
 		setUp2();
+		modelo.sortParaMerge(ints);
+		for(int i= 0; i<20; i++){
+
+			assertEquals(-19+i, ints[i]);
+		}
 	}
 }
