@@ -159,7 +159,7 @@ public class Controller {
 				view.printMessage(rtaQuickSort1);
 				view.printMessage("Los 10 comparendos finales son:");
 				view.printMessage(rtaQuickSort2);
-				
+
 
 
 
