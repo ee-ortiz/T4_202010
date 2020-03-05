@@ -20,6 +20,7 @@ public class Controller {
 	private boolean cargado;
 	public static String PATH = "./data/comparendos_dei_2018_small.geojson";
 	public static String PATH2 = "./data/comparendos_dei_2018.geojson";
+	public static String PATH3 = "./data/Comparendos_DEI_2018_Bogotá_D.C.geojson";
 	private Comparable<Comparendo>[] aOrdenar;
 	private Comparable<Comparendo>[] copiaPrimera;
 
@@ -50,7 +51,7 @@ public class Controller {
 					modelo = new Modelo();
 
 					long start = System.currentTimeMillis();
-					modelo.cargar(PATH2);
+					modelo.cargar(PATH3);
 					IArregloDinamico<Comparendo> comps = modelo.darArreglo();
 					long end = System.currentTimeMillis();
 

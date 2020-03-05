@@ -15,7 +15,7 @@ public class Modelo {
 	 */
 	private IArregloDinamico<Comparendo> comps;
 	private GeoJSONProcessing objetoJsonGson;
-	
+
 
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
@@ -75,7 +75,7 @@ public class Modelo {
 		//INFRACCION, OBJECTID,
 		//FECHA_HORA, CLASE_VEHI, TIPO_SERVI, LOCALIDAD.
 		String rta = "Codigo de infraccion: "+comp.INFRACCION +" ObjectID: " + comp.OBJECTID + " Fecha y hora: " + comp.FECHA_HORA + " Clase de vehiculo "+comp.CLASE_VEHI + " Tipo de servicio: " +
-				comp.TIPO_SERVI + " Localidad: "+ comp.LOCALIDAD;
+				comp.TIPO_SERVI + " Localidad: "+ comp.LOCALIDAD + "Municipio: " + comp.MUNICIPIO;
 		return rta;
 	}
 
@@ -146,12 +146,12 @@ public class Modelo {
 		return i+1; 
 	} 
 
-//relacionado al quicksort, de aqui inicia.
+	//relacionado al quicksort, de aqui inicia.
 	public static void sort(Comparable[] a)
-	 {
-	 StdRandom.shuffle(a);
-	 sort(a, 0, a.length - 1);
-	 } 
+	{
+		StdRandom.shuffle(a);
+		sort(a, 0, a.length - 1);
+	} 
 	/* The main function that implements QuickSort() 
    datos[] --> Array to be sorted, 
    low  --> Starting index, 
@@ -192,42 +192,42 @@ public class Modelo {
 	/*
 	 * paso 2 algoritmo mergeSort
 	 */
-	 private static void sortParaMergeSort(Comparable[] a, Comparable[] aux, int lo, int hi)
-	 {
-	 if (hi <= lo) return;
-	 int mid = lo + (hi - lo) / 2;
-	 sortParaMergeSort(a, aux, lo, mid);
-	 sortParaMergeSort(a, aux, mid+1, hi);
-	 merge(a, aux, lo, mid, hi);
-	 }
-	 
-	 /*
-	  *  aqui inicia el algoritmo mergeSort sacado del libro algorithms 4 edicion
-	  */
-	 public static void sortParaMerge(Comparable[] a)
-	 {
-	 Comparable[] aux = new Comparable[a.length];
-	 sortParaMergeSort(a, aux, 0, a.length - 1);
-	 }
-	 
-	 
-	 
-	 /*
-	  * ultimo paso
-	  */
-	 private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi)
-	 {
-	  for (int k = lo; k <= hi; k++)
-	  aux[k] = a[k];
-	  int i = lo, j = mid+1;
-	  for (int k = lo; k <= hi; k++)
-	  	{
-	  if (i > mid) a[k] = aux[j++];
-	  else if (j > hi) a[k] = aux[i++];
-	  else if (less(aux[j], aux[i])) //si izquierda menor true
-	  	{ a[k] = aux[j++];}
-	  else a[k] = aux[i++];
-	  	}
-	 } 
+	private static void sortParaMergeSort(Comparable[] a, Comparable[] aux, int lo, int hi)
+	{
+		if (hi <= lo) return;
+		int mid = lo + (hi - lo) / 2;
+		sortParaMergeSort(a, aux, lo, mid);
+		sortParaMergeSort(a, aux, mid+1, hi);
+		merge(a, aux, lo, mid, hi);
+	}
+
+	/*
+	 *  aqui inicia el algoritmo mergeSort sacado del libro algorithms 4 edicion
+	 */
+	public static void sortParaMerge(Comparable[] a)
+	{
+		Comparable[] aux = new Comparable[a.length];
+		sortParaMergeSort(a, aux, 0, a.length - 1);
+	}
+
+
+
+	/*
+	 * ultimo paso
+	 */
+	private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi)
+	{
+		for (int k = lo; k <= hi; k++)
+			aux[k] = a[k];
+		int i = lo, j = mid+1;
+		for (int k = lo; k <= hi; k++)
+		{
+			if (i > mid) a[k] = aux[j++];
+			else if (j > hi) a[k] = aux[i++];
+			else if (less(aux[j], aux[i])) //si izquierda menor true
+			{ a[k] = aux[j++];}
+			else a[k] = aux[i++];
+		}
+	} 
 
 }

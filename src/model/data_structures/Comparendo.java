@@ -12,6 +12,7 @@ public class Comparendo implements Comparable<Comparendo> {
 	public String TIPO_SERVI;
 	public String INFRACCION;
 	public String LOCALIDAD;
+	public String MUNICIPIO;
 
 	public double latitud;
 	public double longitud;
@@ -21,7 +22,7 @@ public class Comparendo implements Comparable<Comparendo> {
 		//	Mostrar la información del comparendo (OBJECTID, FECHA_HORA, INFRACCION, CLASE_VEHI, TIPO_SERVI, LOCALIDAD) 
 
 		String rta = "OBJECTID: "+OBJECTID +" FECHA_HORA: " + FECHA_HORA + " INFRACCION: " + INFRACCION + " CLASE_VEHI: "+CLASE_VEHI + " TIPO_SERVI: " +
-				TIPO_SERVI + " LOCALIDAD: "+ LOCALIDAD;
+				TIPO_SERVI + " LOCALIDAD: "+ LOCALIDAD + " MUNICIPIO: " + MUNICIPIO;
 		return rta;
 	}
 
