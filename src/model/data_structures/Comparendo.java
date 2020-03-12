@@ -1,5 +1,6 @@
 package model.data_structures;
 
+import java.util.Comparator;
 import java.util.Date;
 
 public class Comparendo implements Comparable<Comparendo> {
@@ -36,5 +37,11 @@ public class Comparendo implements Comparable<Comparendo> {
 			return FECHA_HORA.compareTo(comp.FECHA_HORA);
 		}
 
+	}
+	public static class ComparadorXLatitud implements Comparator<Comparendo> {
+
+		public int compare(Comparendo c1, Comparendo c2) {
+			return  (int) ((int)c1.latitud-c2.latitud);
+		}
 	}
 }

@@ -1,10 +1,10 @@
 package model.logic;
 
+import java.util.Comparator;
+
 import model.data_structures.ArregloDinamico;
 import model.data_structures.Comparendo;
 import model.data_structures.IArregloDinamico;
-
-import java.util.Random;
 /**
  * Definicion del modelo del mundo
  *
@@ -91,143 +91,61 @@ public class Modelo {
 		return rta;
 
 	}
+	public static Comparendo cambiarDeComparableAComparendo(Comparable a){
 
-	// solucion adaptada de las presentaciones de sicua
-	public void shellSort(Comparable datos[]){
-
-		int tamano = datos.length;
-		int h = 1;
-		while (h < tamano/3){
-
-			h = 3*h + 1; // 1, 4, 13, 40, 121, 364, ...
-
-		}
-		while (h >= 1)
-		{ // h-sort the array.
-			for (int i = h; i < tamano; i++)
-			{
-				for (int j = i; j >= h && less(datos[j], datos[j-h]); j -= h){
-
-					exch(datos, j, j-h);
-				}
-
-			}
-			h = h/3;
-		}
-
+		Comparendo rta = (Comparendo) a;
+		return rta;
 	}
 
-	/* This function takes last element as pivot, 
-    places the pivot element at its correct 
-    position in sorted array, and places all 
-    smaller (smaller than pivot) to left of 
-    pivot and all greater elements to right 
-    of pivot */
+	//aqui inicia la implementacion del heapsort
+	
+	 /**
+     * Rearranges the array in ascending order, using the natural order.
+     * @param pq the array to be sorted
+     */
+    public static void sort(Comparable[] pq, Comparator<Comparendo> comparador)	 {
+        int n = pq.length;
 
-	// solucion adaptada de: https://www.geeksforgeeks.org/quick-sort/
-	public static int partition(Comparable datos[], int low, int high) 
-	{ 
-		Comparable pivote = datos[high];  
-		int i = (low-1); // index of smaller element 
-		for (int j=low; j<high; j++) 
-		{ 
-			// Si el elemento actual es menor que el pivote
-			if (less(datos[j], pivote)) 
-			{ 
-				i++; 
-				// swap datos[i] and datos[j]  
-				exch(datos, i, j);
-			} 
-		} 
+        // heapify phase
+        for (int k = n/2; k >= 1; k--)
+            sink(pq, k, n,comparador);
 
-		// swap datos[i+1] and datos[high] (o pivote) 
-		exch(datos, i+1, high);
+        // sortdown phase
+        int k = n;
+        while (k > 1) {
+            exch(pq, 1, k--);
+            sink(pq, 1, k,comparador);
+        }
+    }
 
-		return i+1; 
-	} 
+   /***************************************************************************
+    * Helper functions to restore the heap invariant.
+    ***************************************************************************/
 
-	//relacionado al quicksort, de aqui inicia.
-	public static void sort(Comparable[] a)
-	{
-		StdRandom.shuffle(a);
-		sort(a, 0, a.length - 1);
-	} 
-	/* The main function that implements QuickSort() 
-   datos[] --> Array to be sorted, 
-   low  --> Starting index, 
-   high  --> Ending index */
+    private static void sink(Comparable[] pq, int k, int n, Comparator<Comparendo> comparador) {
+        while (2*k <= n) {
+            int j = 2*k;
+            if (j < n && less(pq, j, j+1, comparador)) j++;
+            if (!less(pq, k, j, comparador)) break;
+            exch(pq, k, j);
+            k = j;
+        }
+    }
 
-	// solucion adaptada de: https://www.geeksforgeeks.org/quick-sort/
-	public static void sort(Comparable datos[], int low, int high) 
-	{ 
-		if (low < high) 
-		{ 
-			/* pi is partitioning index, arr[pi] is  
-           now at right place */
-			int pi = partition(datos, low, high); 
+   /***************************************************************************
+    * Helper functions for comparisons and swaps.
+    * Indices are "off-by-one" to support 1-based indexing.
+    ***************************************************************************/
+    private static boolean less(Comparable[] pq, int i, int j, Comparator<Comparendo> comparador) {
+        
+    	return comparador.compare(cambiarDeComparableAComparendo(pq[i-1]), cambiarDeComparableAComparendo(pq[j-1])) < 0;
+    }
 
-			// Recursively sort elements before 
-			// partition and after partition 
-			sort(datos, low, pi-1); 
-			sort(datos, pi+1, high); 
-		} 
-	} 
-
-	public static void exch(Comparable[] a, int i, int j ){
-
-		Comparable temporal = a[i];
-		a[i] = a[j];
-		a[j] = temporal;
-	}
-
-	public static boolean less(Comparable a, Comparable b){
-
-		if(a.compareTo(b)<0){
-			return true;
-		}
-		else{
-			return false; //mayor o igual a cero
-		}
-	}
-	/*
-	 * paso 2 algoritmo mergeSort
-	 */
-	private static void sortParaMergeSort(Comparable[] a, Comparable[] aux, int lo, int hi)
-	{
-		if (hi <= lo) return;
-		int mid = lo + (hi - lo) / 2;
-		sortParaMergeSort(a, aux, lo, mid);
-		sortParaMergeSort(a, aux, mid+1, hi);
-		merge(a, aux, lo, mid, hi);
-	}
-
-	/*
-	 *  aqui inicia el algoritmo mergeSort sacado del libro algorithms 4 edicion
-	 */
-	public static void sortParaMerge(Comparable[] a)
-	{
-		Comparable[] aux = new Comparable[a.length];
-		sortParaMergeSort(a, aux, 0, a.length - 1);
-	}
-
-
-
-	/*
-	 * ultimo paso
-	 */
-	private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi)
-	{
-		for (int k = lo; k <= hi; k++)
-			aux[k] = a[k];
-		int i = lo, j = mid+1;
-		for (int k = lo; k <= hi; k++)
-		{
-			if (i > mid) a[k] = aux[j++];
-			else if (j > hi) a[k] = aux[i++];
-			else if (less(aux[j], aux[i])) //si izquierda menor true
-			{ a[k] = aux[j++];}
-			else a[k] = aux[i++];
-		}
-	} 
+    private static void exch(Object[] pq, int i, int j) {
+        Object swap = pq[i-1];
+        pq[i-1] = pq[j-1];
+        pq[j-1] = swap;
+    }
+    //aqui acaba
 
 }
