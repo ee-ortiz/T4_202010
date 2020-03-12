@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import model.data_structures.ArregloDinamico;
 import model.data_structures.IArregloDinamico;
+import model.data_structures.MaxHeapCP;
 import model.logic.Modelo;
 
 public class TestAlgoritmosOrdenamiento {
@@ -25,8 +26,8 @@ public class TestAlgoritmosOrdenamiento {
 	 */
 
 	private Modelo modelo;
-	private IArregloDinamico<Double> arregloDoubles;
-	private IArregloDinamico<Integer> arregloIntegers;
+	private MaxHeapCP<Double> arregloDoubles;
+	private MaxHeapCP<Integer> arregloIntegers;
 	private Comparable[] doubles;
 	private Comparable[] ints;
 	
@@ -35,8 +36,8 @@ public class TestAlgoritmosOrdenamiento {
 	public void setUp1() {
 
 		modelo = new Modelo();
-		arregloDoubles = new ArregloDinamico<Double>(20);
-		arregloIntegers = new ArregloDinamico<Integer>(20);
+		arregloDoubles = new MaxHeapCP<>();
+		arregloIntegers = new MaxHeapCP<>();
 		doubles = new Comparable[20];
 		ints = new Comparable[20];
 
@@ -79,128 +80,48 @@ public class TestAlgoritmosOrdenamiento {
 	}
 
 	@Test
-	public void testShellSortArregloAleatorio() {
+	public void testAgregarMaxHeapCP() {
 
 		setUp1();
 		setUp1Arreglo();
 		setUp2();
-		modelo.shellSort(doubles);
-		for(int i= 0; i<19; i++){
+		int variable= arregloDoubles.darTamano();
+		arregloDoubles.agregar(2.1);
+		assertTrue(arregloDoubles.darTamano()>variable);
 
-			assertTrue(doubles[i].compareTo(doubles[i+1])<=0);
+			//assertTrue(doubles[i].compareTo(doubles[i+1])<=0);
 
-		}
-
-	}
-
-	@Test
-	public void testShellSortOrdenado() {
-
-		setUp1();
-		setUp2Arreglo();
-		setUp2();
-		modelo.shellSort(ints);
-		for(int i= 0; i<20; i++){
-
-			assertEquals(i, ints[i]);
-
-		}
+		
 
 	}
-
-	@Test
-	public void testShellSortOrdenadoDescendente() {
-
-		setUp1();
-		setUp3Arreglo();
-		setUp2();
-		modelo.shellSort(ints);
-		for(int i= 0; i<20; i++){
-
-			assertEquals(-19+i, ints[i]);
-		}
-
-	}
-
-	@Test
-	public void testQuickSortAleatorio() {
+	public void testDarNumeroDeElementosMaxHeap() {
 
 		setUp1();
 		setUp1Arreglo();
 		setUp2();
-		modelo.sort(doubles, 0, doubles.length-1);
-		for(int i= 0; i<19; i++){
-
-			assertTrue(doubles[i].compareTo(doubles[i+1])<=0);
-		}
+		int variable= arregloDoubles.darTamano();
+		arregloDoubles.agregar(2.1);
+		assertTrue(arregloDoubles.darTamano()>variable);
 
 	}
+	public void testSacarMaxHeap() {
 
-	@Test
-	public void testQuickSortOrdenado() {
-
-		setUp1();
-		setUp2Arreglo();
+		
 		setUp2();
-		modelo.sort(ints, 0, ints.length-1);
-		for(int i= 0; i<20; i++){
+		int variable= arregloIntegers.sacarMax();
+		assertTrue(variable>arregloIntegers.darElemento(0));
 
-			assertEquals(i, ints[i]);
-
-		}
+			//assertTrue(doubles[i].compareTo(doubles[i+1])<=0);
 
 	}
-
-	@Test
-	public void testQuickSortOrdenadoDescendente() {
-
-		setUp1();
-		setUp3Arreglo();
+	public void testdarMaxMaxHeap(){
 		setUp2();
-		modelo.sort(ints, 0, ints.length-1);
-		for(int i= 0; i<20; i++){
-
-			assertEquals(-19+i, ints[i]);
-		}
-
+		int variable= arregloIntegers.sacarMax();
+		assertTrue(variable>arregloIntegers.darElemento(0));
 	}
-	@Test
-	public void testMergeSortAleatorio()
-	{
-		setUp1();
-		setUp1Arreglo();
-		setUp2();
-		modelo.sortParaMerge(ints);
-		for(int i= 0; i<19; i++){
-
-			assertTrue(doubles[i].compareTo(doubles[i+1])<=0);
-		}
-
+	public void testEstaVacio(){
+		assertTrue(arregloIntegers.darElemento(0)==null);
 	}
+
 	
-	@Test
-	public void testMergeSortOrdenadoAscendentemente()
-	{
-		setUp1();
-		setUp2Arreglo();
-		setUp2();
-		modelo.sortParaMerge(ints);
-		for(int i= 0; i<20; i++){
-
-			assertEquals(i, ints[i]);
-
-		}
-	}
-	@Test
-	public void testMergeSortAleatorioOrdenadoDescendentemente()
-	{
-		setUp1();
-		setUp3Arreglo();
-		setUp2();
-		modelo.sortParaMerge(ints);
-		for(int i= 0; i<20; i++){
-
-			assertEquals(-19+i, ints[i]);
-		}
-	}
 }

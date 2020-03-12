@@ -6,6 +6,7 @@ import model.data_structures.Comparendo;
 import model.data_structures.IArregloDinamico;
 import model.data_structures.ICola;
 import model.data_structures.IPila;
+import model.data_structures.MaxHeapCP;
 import model.logic.Modelo;
 import view.View;
 
@@ -52,7 +53,7 @@ public class Controller {
 
 					long start = System.currentTimeMillis();
 					modelo.cargar(PATH3);
-					IArregloDinamico<Comparendo> comps = modelo.darArreglo();
+					MaxHeapCP<Comparendo> comps = modelo.darArreglo();
 					long end = System.currentTimeMillis();
 
 					view.printMessage("Tiempo de carga (s): " + (end-start)/1000.0);
@@ -83,28 +84,36 @@ public class Controller {
 				break;
 
 			case 3:
-				aOrdenar = copiaPrimera;
-				long start1 = System.currentTimeMillis();
-				modelo.sort(aOrdenar);
-				long end1 = System.currentTimeMillis();
-				view.printMessage("Tiempo de carga (s): " + (end1-start1)/1000.0);
+				//supuestamente ya se cargaron los datos
+				String rtas="";
+				view.printMessage("ingrese el nombre del vehiculos");
+				 String vehiculo = lector.next();
 
-				String rta1 = "";
-				String rta2 = "";
+				 try {
 
-				int i = 0;
-				while(i<10){
-					Comparendo aMostarInicial = (Comparendo) aOrdenar[i];
-					Comparendo aMostraFinal = (Comparendo) aOrdenar[aOrdenar.length -10 +i];
-					rta1 += "- " + aMostarInicial.retornarDatos() + "\n";
-					rta2 += "- " + aMostraFinal.retornarDatos() + "\n";	
-					i++;
+						
 
-				}
-				view.printMessage("Los 10 comparendos iniciales son:");
-				view.printMessage(rta1);
-				view.printMessage("Los 10 comparendos finales son:");
-				view.printMessage(rta2);
+						Comparable [] a = modelo.requerimiento2(vehiculo);
+
+						int i = 0;
+
+						if(a.length>0){
+							while(i<a.length){
+								Comparendo aMostar = (Comparendo) a[i];
+								rtas += "- " + modelo.RetornarDatos(aMostar) + "\n";
+								i++;
+							}
+							view.printMessage("El total de comparendos registrados en el archivo dada una Latitud es: " + a.length + "\n" );
+							view.printMessage(rtas);
+						}
+						else{
+							view.printMessage("No se encontraron comparendos con esa fecha en los archivos");
+						}
+					}
+
+					catch (Exception e) {
+						e.printStackTrace();
+					}
 
 				break;
 

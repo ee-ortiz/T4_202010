@@ -6,6 +6,7 @@ import model.data_structures.ArregloDinamico;
 import model.data_structures.Comparendo;
 import model.data_structures.IArregloDinamico;
 import model.data_structures.MaxHeapCP;
+import model.data_structures.Comparendo.ComparadorXLatitud;
 /**
  * Definicion del modelo del mundo
  *
@@ -153,20 +154,29 @@ public class Modelo {
      * latitud) y que involucraron un tipo de vehículo que está incluido en una lista (con una 
      * MaxHeapCP). 
      */
-    public Comparable[] requerimiento2 (String pVehi,  Comparator<Comparendo> comparador)
+    public Comparable[] requerimiento2 (String pVehi)
     {
     	int i = 0;
-
+    	String[] vehiculos= pVehi.split(",");
 		MaxHeapCP<Comparendo> arregloTemp = new MaxHeapCP<Comparendo>();
+		ComparadorXLatitud b = new ComparadorXLatitud();
     	while(i<comps.darTamano()){
-			if(comps.darElemento(i).CLASE_VEHI.compareTo(pVehi)==0){
+    		int s=0;
+    		boolean tipoEncontrado=false;
+    		while(s<vehiculos.length)
+    		{
+    			if(comps.darElemento(i).CLASE_VEHI.compareTo(vehiculos[s])==0&&tipoEncontrado==false){
 
-				arregloTemp.agregar(comps.darElemento(i));
-			}
+    				arregloTemp.agregar(comps.darElemento(i));
+    				tipoEncontrado=true;
+    			}
+    			s++;
+    		}
+			
 			i++;
 		}
     	Comparable [] a = copiarArreglo(arregloTemp);
-    	sort(a, comparador );
+    	sort(a, b );
     	return a;
     	
     	
@@ -179,10 +189,10 @@ public class Modelo {
 			rta[i] = pComps.darElemento(i);
 			i++;
 		}
+		
 
 		return rta;
-
 	}
-
+    
 
 }
