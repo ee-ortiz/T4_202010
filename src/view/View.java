@@ -16,9 +16,8 @@ public class View
 	{
 		System.out.println("1. Cargar Datos");
 		System.out.println("2. Crear un arreglo de objetos Comparables con los comparendos de la carga inicial");
-		System.out.println("3. Ordenar ascendentemente los comparendos del nuevo arreglo usando el algoritmo ShellSort");
-		System.out.println("4. Ordenar ascendentemente los comparendos del nuevo arreglo usando el algoritmo MergeSort");
-		System.out.println("5. Ordenar ascendentemente los comparendos del nuevo arreglo usando el algoritmo QuickSort");		
+		System.out.println("3. Mostrar los N comparendos que ocurrieron más al norte (basada en la latitud) y que involucraron un tipo de vehículo que está incluido en una lista (con unaMaxColaCP)");
+		System.out.println("4. Mostrar los N comparendos que ocurrieron más al norte (basada en la latitud) y que involucraron un tipo de vehículo que está incluido en una lista (con unaMaxHeapCP");	
 		System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return:");
 
 	}

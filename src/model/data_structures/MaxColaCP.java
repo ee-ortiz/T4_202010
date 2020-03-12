@@ -2,7 +2,8 @@ package model.data_structures;
 
 import model.logic.Modelo;
 
-public class MaxHeapCP <T extends Comparable<T>>{
+// Elementary implementation
+public class MaxColaCP <T extends Comparable<T>>{
 	/**
 	 * Capacidad maxima del arreglo
 	 */
@@ -15,24 +16,25 @@ public class MaxHeapCP <T extends Comparable<T>>{
 	 * Arreglo de elementos de tamaNo maximo
 	 */
 	private T elementos[ ];
-	
+
+	private Modelo modelo;
 
 	/**
 	 * Construir un arreglo con la capacidad maxima inicial.
 	 * @param max Capacidad maxima inicial
 	 */
-	public MaxHeapCP() {
-		// TODO Auto-generated constructor stub
+	public MaxColaCP() {
+
 		tamanoAct = 1;
 		tamanoMax = tamanoAct;
 		elementos = (T[]) new Comparable[tamanoMax];
-	
-		
-		
-		
+
+
+
+
 	}
 
-	public void agregar( T dato )
+	public void agregar(T dato)
 	{
 		if ( tamanoAct == tamanoMax )
 		{  // caso de arreglo lleno (aumentar tamaNo)
@@ -119,6 +121,7 @@ public class MaxHeapCP <T extends Comparable<T>>{
 		}
 		return null;
 	}
+
 	public T darMax()
 	{
 		return elementos[0];
@@ -131,6 +134,6 @@ public class MaxHeapCP <T extends Comparable<T>>{
 		}
 		return false;
 	}
-	
+
 }
 

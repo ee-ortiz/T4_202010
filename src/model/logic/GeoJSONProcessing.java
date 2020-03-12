@@ -19,6 +19,7 @@ import model.data_structures.Comparendo;
 import model.data_structures.IArregloDinamico;
 import model.data_structures.ICola;
 import model.data_structures.IPila;
+import model.data_structures.MaxColaCP;
 import model.data_structures.MaxHeapCP;
 import model.data_structures.Pila;
 
@@ -27,7 +28,7 @@ import model.data_structures.Pila;
 public class GeoJSONProcessing {
 
 	// Solucion de carga de datos publicada al curso Estructuras de Datos 2020-10
-	public void cargarDatos(MaxHeapCP<Comparendo> pComp, String direccion){
+	public void cargarDatos(MaxHeapCP<Comparendo> pComp1, MaxColaCP<Comparendo> pComp2, String direccion){
 
 		JsonReader reader;
 		try {
@@ -59,7 +60,8 @@ public class GeoJSONProcessing {
 				c.latitud = e.getAsJsonObject().get("geometry").getAsJsonObject().get("coordinates").getAsJsonArray()
 						.get(1).getAsDouble();
 
-				pComp.agregar(c);				
+				pComp1.agregar(c);
+				pComp2.agregar(c);
 
 			}
 		} 
