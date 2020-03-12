@@ -5,6 +5,7 @@ import java.util.Comparator;
 import model.data_structures.ArregloDinamico;
 import model.data_structures.Comparendo;
 import model.data_structures.IArregloDinamico;
+import model.data_structures.MaxHeapCP;
 /**
  * Definicion del modelo del mundo
  *
@@ -13,7 +14,7 @@ public class Modelo {
 	/**
 	 * Atributos del modelo del mundo
 	 */
-	private IArregloDinamico<Comparendo> comps;
+	private MaxHeapCP<Comparendo> comps;
 	private GeoJSONProcessing objetoJsonGson;
 
 
@@ -22,7 +23,7 @@ public class Modelo {
 	 */
 	public Modelo()
 	{
-		comps = new ArregloDinamico(600000);
+		comps = new MaxHeapCP();
 		objetoJsonGson = new GeoJSONProcessing();
 	}
 
@@ -66,7 +67,7 @@ public class Modelo {
 		objetoJsonGson.cargarDatos(comps, direccion);;
 	}
 
-	public IArregloDinamico<Comparendo> darArreglo(){
+	public MaxHeapCP<Comparendo> darArreglo(){
 
 		return comps;
 	}
@@ -147,5 +148,41 @@ public class Modelo {
         pq[j-1] = swap;
     }
     //aqui acaba
+    /**
+     * Mostrar los N comparendos que ocurrieron más al norte (basada en la 
+     * latitud) y que involucraron un tipo de vehículo que está incluido en una lista (con una 
+     * MaxHeapCP). 
+     */
+    public Comparable[] requerimiento2 (String pVehi,  Comparator<Comparendo> comparador)
+    {
+    	int i = 0;
+
+		MaxHeapCP<Comparendo> arregloTemp = new MaxHeapCP<Comparendo>();
+    	while(i<comps.darTamano()){
+			if(comps.darElemento(i).CLASE_VEHI.compareTo(pVehi)==0){
+
+				arregloTemp.agregar(comps.darElemento(i));
+			}
+			i++;
+		}
+    	Comparable [] a = copiarArreglo(arregloTemp);
+    	sort(a, comparador );
+    	return a;
+    	
+    	
+    }
+    public Comparable[] copiarArreglo( MaxHeapCP<Comparendo>  pComps){
+
+		Comparable[] rta = new Comparable[pComps.darTamano()];
+		int i = 0;
+		while(i < pComps.darTamano()){
+			rta[i] = pComps.darElemento(i);
+			i++;
+		}
+
+		return rta;
+
+	}
+
 
 }
